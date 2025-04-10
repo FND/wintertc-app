@@ -1,4 +1,4 @@
-import { handleRequest } from "./http.js";
+import { dispatch } from "./http.js";
 import { serve } from "./adaptor.js";
 
-serve(8000, handleRequest);
+serve(8000, dispatch);

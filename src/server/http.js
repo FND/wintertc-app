@@ -1,38 +1,38 @@
 import { serveStatic } from "./static.js";
+import { Route } from "./route.js";
 import { readableStream } from "./adaptor.js";
 
-let ROUTES = {
-	root: new URLPattern({
-		pathname: "/",
-	}),
-	assets: new URLPattern({
-		pathname: "/assets/:filename",
-	}),
-};
-
 let TEMPLATE = new URL("./template.html", import.meta.url).pathname;
+let ROUTES = [
+	new Route("root", "/", {
+		GET: async () => {
+			let html = await readableStream(TEMPLATE);
+			return new Response(html, {
+				status: 200,
+				headers: {
+					"Content-Type": "text/html",
+				},
+			});
+		},
+	}),
+	new Route("assets", "/assets/:filename", {
+		GET: (_req, { filename }) => filename ? serveStatic(filename) : null,
+	}),
+];
 
 /**
- * @param {{ url: Request["url"] }} req
- * @returns {Promise<Response>}
+ * @param {Request} req
+ * @returns {Response | Promise<Response>}
  */
-export async function handleRequest({ url }) {
-	if (ROUTES.root.test(url)) {
-		let html = await readableStream(TEMPLATE);
-		return new Response(html, {
-			status: 200,
-			headers: {
-				"Content-Type": "text/html",
-			},
-		});
+export function dispatch(req) {
+	for (let route of ROUTES) {
+		let res = route.dispatch(req); // TODO: error handling (HTTP 500)
+		if (res) {
+			return res;
+		}
 	}
 
-	let asset = ROUTES.assets.exec(url)?.pathname.groups.filename;
-	if (asset) {
-		return serveStatic(asset);
-	}
-
-	return new Response("Not Found", {
+	return new Response("404 Not Found\n", {
 		status: 404,
 		headers: {
 			"Content-Type": "text/plain",
