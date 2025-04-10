@@ -12,7 +12,7 @@ export class Route {
 
 	/**
 	 * @param {Request} req
-	 * @returns {Result}
+	 * @returns {HTTPResponse | null}
 	 */
 	dispatch(req) {
 		let match = this._pattern.exec(req.url);
@@ -36,7 +36,7 @@ export class Route {
 }
 
 /**
- * @typedef {(req: Request, params: PathParams) => Result} RequestHandler
+ * @typedef {(req: Request, params: PathParams) => HTTPResponse} RequestHandler
  * @typedef {Record<string, string | undefined>} PathParams
- * @typedef {Response | Promise<Response> | null} Result
+ * @typedef {Response | Promise<Response>} HTTPResponse
  */
