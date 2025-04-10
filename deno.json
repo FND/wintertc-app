@@ -1,9 +1,14 @@
 {
+	"imports": {
+		"@std/testing/bdd": "jsr:@std/testing@^1.0.11/bdd",
+		"@std/path": "jsr:@std/path@^1.0.8",
+		"@std/assert": "jsr:@std/assert@^1.0.12"
+	},
 	"tasks": {
-		"server": "deno run --watch --allow-net ./src/server/index.js",
-		"all": "deno task vet && deno task verify",
+		"server": "deno run --watch --allow-read --allow-net ./src/server/index.js",
+		"all": "deno task vet && deno task verify && deno test --allow-read --parallel",
 		"vet": "deno fmt --check && deno lint",
-		"verify": "deno check --config ./tsconfig.json ./src"
+		"verify": "deno check --config ./tsconfig.json --import-map ./deno.json ./src"
 	},
 	"fmt": {
 		"include": ["./src"],
@@ -17,5 +22,8 @@
 			"include": ["eqeqeq"],
 			"exclude": ["prefer-const"]
 		}
+	},
+	"test": {
+		"include": ["./src"]
 	}
 }

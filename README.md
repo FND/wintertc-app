@@ -20,3 +20,6 @@ Contributing
 *   `deno task vet` checks code for stylistic consistency
 
     `deno fmt` can be used to automatically format code
+
+*   `deno test --allow-read` runs the test suite (optionally with `--parallel`
+    or `--watch`)
