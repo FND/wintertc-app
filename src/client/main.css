@@ -17,10 +17,30 @@ body {
 	line-height: 1.5;
 }
 
+form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing);
+}
+
 input,
 textarea,
 select,
 button {
 	font-family: inherit;
 	font-size: inherit;
+}
+
+label,
+label b {
+	display: block;
+}
+
+input,
+textarea {
+	width: 100%;
+}
+
+textarea:not([rows]) {
+	min-height: 10em;
 }
