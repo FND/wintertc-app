@@ -1,0 +1,21 @@
+{
+	"tasks": {
+		"server": "deno run --watch --allow-net ./src/server/index.js",
+		"all": "deno task vet && deno task verify",
+		"vet": "deno fmt --check && deno lint",
+		"verify": "deno check --config ./tsconfig.json ./src"
+	},
+	"fmt": {
+		"include": ["./src"],
+		"lineWidth": 90,
+		"useTabs": true,
+		"indentWidth": 4
+	},
+	"lint": {
+		"include": ["./src"],
+		"rules": {
+			"include": ["eqeqeq"],
+			"exclude": ["prefer-const"]
+		}
+	}
+}
