@@ -1,10 +1,8 @@
-import { encodeHTML, formData } from "../util.js";
-import { readableStream } from "../adaptor.js";
+import { document } from "./template.js";
+import { html } from "../html.js";
+import { formData } from "../util.js";
 
-let TEMPLATE = "./template.html";
-
-TEMPLATE = new URL(TEMPLATE, import.meta.url).pathname;
-TEMPLATE = await new Response(await readableStream(TEMPLATE)).text();
+/** @type {Map<string, string | null>} */
 let STORE = new Map();
 
 export default {
@@ -13,15 +11,34 @@ export default {
 };
 
 /** @returns {Response} */
-function show() {
-	// XXX: crude templating
-	let items = STORE.entries().map(([name, desc]) => {
-		return `<dt>${encodeHTML(name)}</dt><dd>${encodeHTML(desc)}</dd>`;
-	});
-	let html = `<dl>${[...items].join("\n")}</dl>`;
-	html = TEMPLATE.replace("</body>", html);
+function show() { // XXX: hard-coded URIs
+	let title = "Items";
+	// deno-fmt-ignore
+	let doc = document({
+		lang: "en",
+		title,
+	}, html`
+<link rel="stylesheet" href="/assets/main.css">
+	`, html`
+<h1>${title}</h1>
 
-	return new Response(html, {
+<form action="/" method="post">
+	<label>
+		<b>Name</b>
+		<input type="text" name="name">
+	</label>
+	<label>
+		<b>Description</b>
+		<textarea name="desc"></textarea>
+	</label>
+	<button>Submit</button>
+</form>
+
+<dl>${STORE.entries().map(([name, desc]) => {
+	return html`<dt>${name}</dt><dd>${desc ?? "—"}</dd>`;
+})}</dl>
+	`);
+	return new Response(doc.toString(), {
 		status: 200,
 		headers: {
 			"Content-Type": "text/html",
@@ -37,7 +54,7 @@ async function update(req) {
 	let data = await formData(req.body);
 	let name = data.get("name");
 	if (name) {
-		STORE.set(name, data.get("desc"));
+		STORE.set(name, data.get("desc") || null);
 	}
 	return new Response(null, {
 		status: 302,

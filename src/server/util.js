@@ -14,18 +14,3 @@ export async function formData(body) {
 	}
 	return new URLSearchParams(res.join(""));
 }
-
-/**
- * @param {string} str
- * @param {boolean} isAttribute
- * @returns {string}
- */
-export function encodeHTML(str, isAttribute = false) {
-	str = str.replaceAll("&", "&amp;");
-	if (isAttribute) {
-		return str.replaceAll('"', "&quot;")
-			.replaceAll("'", "&#x27;");
-	}
-	return str.replaceAll("<", "&lt;")
-		.replaceAll(">", "&gt;");
-}
