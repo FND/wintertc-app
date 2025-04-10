@@ -1,23 +1,10 @@
-import { serveStatic } from "./static.js";
+import rootHandlers from "./routes/root.js";
+import assetHandlers from "./routes/assets.js";
 import { Route } from "./route.js";
-import { readableStream } from "./adaptor.js";
 
-let TEMPLATE = new URL("./template.html", import.meta.url).pathname;
 let ROUTES = [
-	new Route("root", "/", {
-		GET: async () => {
-			let html = await readableStream(TEMPLATE);
-			return new Response(html, {
-				status: 200,
-				headers: {
-					"Content-Type": "text/html",
-				},
-			});
-		},
-	}),
-	new Route("assets", "/assets/:filename", {
-		GET: (_req, { filename }) => filename ? serveStatic(filename) : null,
-	}),
+	new Route("root", "/", rootHandlers),
+	new Route("assets", "/assets/:filename", assetHandlers),
 ];
 
 /**
