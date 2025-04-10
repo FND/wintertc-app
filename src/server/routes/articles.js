@@ -1,3 +1,5 @@
+import { http404 } from "../util.js";
+
 /** @type {Record<string, string>} */
 let STORE = {
 	"hello-world": "Hello World",
@@ -27,12 +29,12 @@ function list() {
 /**
  * @param {Request} _req
  * @param {PathParams} params
- * @returns {Response | null}
+ * @returns {Response}
  */
 function show(_req, { slug }) {
 	let title = slug && STORE[slug];
 	if (title === undefined) {
-		return null;
+		return http404();
 	}
 
 	let txt = `

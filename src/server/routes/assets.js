@@ -1,3 +1,4 @@
+import { http404 } from "../util.js";
 import {
 	contentType,
 	NotFoundError,
@@ -12,9 +13,9 @@ export default {
 	/**
 	 * @param {Request} _req
 	 * @param {PathParams} params
-	 * @returns {Promise<Response> | null}
+	 * @returns {Promise<Response> | Response}
 	 */
-	GET: (_req, { filename }) => filename ? _serveStatic(filename) : null,
+	GET: (_req, { filename }) => filename ? _serveStatic(filename) : http404(),
 };
 
 /**

@@ -2,6 +2,7 @@ import rootHandlers from "./routes/root.js";
 import * as articleHandlers from "./routes/articles.js";
 import assetHandlers from "./routes/assets.js";
 import { Route } from "./route.js";
+import { http404 } from "./util.js";
 
 let ROUTES = [
 	new Route("root", "/", rootHandlers),
@@ -21,11 +22,5 @@ export function dispatch(req) {
 			return res;
 		}
 	}
-
-	return new Response("404 Not Found\n", {
-		status: 404,
-		headers: {
-			"Content-Type": "text/plain",
-		},
-	});
+	return http404();
 }
