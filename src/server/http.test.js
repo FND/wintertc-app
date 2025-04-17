@@ -1,3 +1,4 @@
+import { ROUTES } from "./config.js";
 import { dispatch } from "./http.js";
 import { describe, it } from "@std/testing/bdd";
 import { assert, assertStrictEquals as assertSame } from "@std/assert";
@@ -28,5 +29,5 @@ describe("HTTP routing", () => {
  */
 function process(uri) {
 	let req = new Request("https://example.org" + uri);
-	return dispatch(req);
+	return dispatch(ROUTES, req);
 }

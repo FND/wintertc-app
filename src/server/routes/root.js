@@ -1,6 +1,6 @@
 import { document } from "./template.js";
 import { html } from "../html.js";
-import { formData } from "../util.js";
+import { formData } from "../http.js";
 
 /** @type {Map<string, string | null>} */
 let STORE = new Map();
