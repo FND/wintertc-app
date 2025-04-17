@@ -1,4 +1,4 @@
-import { http404 } from "../http.js";
+import { http404 } from "../http/index.js";
 import {
 	contentType,
 	NotFoundError,

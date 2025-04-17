@@ -1,4 +1,4 @@
-import { http404 } from "../http.js";
+import { http404 } from "../http/index.js";
 
 /** @type {Record<string, string>} */
 let STORE = {

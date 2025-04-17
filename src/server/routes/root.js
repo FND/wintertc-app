@@ -1,9 +1,15 @@
+import { ROUTES } from "../config.js";
 import { document } from "./template.js";
 import { html } from "../html.js";
-import { formData } from "../http.js";
+import { formData } from "../http/index.js";
 
 /** @type {Map<string, string | null>} */
 let STORE = new Map();
+
+/** @type {string} */
+let ROOT_URL;
+/** @type {Route} */
+let ASSET_ROUTE;
 
 export default {
 	GET: show,
@@ -11,18 +17,23 @@ export default {
 };
 
 /** @returns {Response} */
-function show() { // XXX: hard-coded URIs
+function show() {
+	ROOT_URL ??= /** @type {Route} */ (ROUTES.get("root")).url().toString();
+	ASSET_ROUTE ??= /** @type {Route} */ (ROUTES.get("asset"));
+
 	let title = "Items";
 	// deno-fmt-ignore
 	let doc = document({
 		lang: "en",
 		title,
 	}, html`
-<link rel="stylesheet" href="/assets/main.css">
+<link rel="stylesheet"${{
+	href: ASSET_ROUTE.url({ filename: "main.css" }).toString()
+}}>
 	`, html`
 <h1>${title}</h1>
 
-<form action="/" method="post">
+<form method="post"${{ action: ROOT_URL }}>
 	<label>
 		<b>Name</b>
 		<input type="text" name="name">
@@ -59,7 +70,9 @@ async function update(req) {
 	return new Response(null, {
 		status: 302,
 		headers: {
-			Location: req.url, // XXX: crude
+			Location: ROOT_URL,
 		},
 	});
 }
+
+/** @import { Route } from "../route.js" */
