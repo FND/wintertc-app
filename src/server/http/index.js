@@ -40,4 +40,4 @@ export async function formData(body) {
 	return new URLSearchParams(res.join(""));
 }
 
-/** @import { Route } from "./route.js" */
+/** @import { Route } from "../route.js" */
