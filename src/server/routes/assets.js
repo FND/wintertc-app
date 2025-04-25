@@ -7,7 +7,7 @@ import {
 	stat,
 } from "../adaptor.js";
 
-let ASSETS_DIR = new URL("../../client", import.meta.url).pathname;
+let ASSETS_DIR = new URL("../../assets", import.meta.url).pathname;
 
 export default {
 	/**

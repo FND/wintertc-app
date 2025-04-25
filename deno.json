@@ -12,7 +12,7 @@
 	},
 	"fmt": {
 		"include": ["./src"],
-		"exclude": ["./src/server/**/*.html", "./src/client/*.css"],
+		"exclude": ["./src/server/**/*.html", "./src/assets/*.css"],
 		"lineWidth": 90,
 		"useTabs": true,
 		"indentWidth": 4
