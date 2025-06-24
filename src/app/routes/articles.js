@@ -1,4 +1,4 @@
-import { http404 } from "../http/index.js";
+import { http404 } from "../../lib/http/index.js";
 
 /** @type {Record<string, string>} */
 let STORE = {
@@ -53,4 +53,4 @@ nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 	});
 }
 
-/** @import { PathParams } from "../route.js" */
+/** @import { PathParams } from "../../lib/route.js" */

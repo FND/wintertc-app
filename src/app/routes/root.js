@@ -1,7 +1,7 @@
 import { ROUTES } from "../config.js";
-import { document } from "./template.js";
-import { html } from "../html.js";
-import { formData } from "../http/index.js";
+import { document } from "../doc.js";
+import { html } from "../../lib/html.js";
+import { formData, http302 } from "../../lib/http/index.js";
 
 /** @type {Map<string, string | null>} */
 let STORE = new Map();
@@ -67,12 +67,7 @@ async function update(req) {
 	if (name) {
 		STORE.set(name, data.get("desc") || null);
 	}
-	return new Response(null, {
-		status: 302,
-		headers: {
-			Location: ROOT_URL,
-		},
-	});
+	return http302(ROOT_URL);
 }
 
-/** @import { Route } from "../route.js" */
+/** @import { Route } from "../../lib/route.js" */

@@ -5,14 +5,14 @@
 		"@std/assert": "jsr:@std/assert@^1.0.12"
 	},
 	"tasks": {
-		"server": "deno run --watch --allow-read --allow-net ./src/server/index.js",
+		"app": "deno run --watch --allow-read --allow-net ./src/app/index.js",
 		"all": "deno task vet && deno task verify && deno test --allow-read --parallel",
 		"vet": "deno fmt --check && deno lint",
 		"verify": "deno check --config ./tsconfig.json --import-map ./deno.json ./src"
 	},
 	"fmt": {
 		"include": ["./src"],
-		"exclude": ["./src/server/**/*.html", "./src/assets/*.css"],
+		"exclude": ["./src/app/**/*.html", "./src/assets/*.css"],
 		"lineWidth": 90,
 		"useTabs": true,
 		"indentWidth": 4

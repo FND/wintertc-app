@@ -1,29 +1,11 @@
-import { http404 } from "../http/index.js";
-import {
-	contentType,
-	NotFoundError,
-	readableStream,
-	realpath,
-	stat,
-} from "../adaptor.js";
-
-let ASSETS_DIR = new URL("../../assets", import.meta.url).pathname;
-
-export default {
-	/**
-	 * @param {Request} _req
-	 * @param {PathParams} params
-	 * @returns {Promise<Response> | Response}
-	 */
-	GET: (_req, { filename }) => filename ? _serveStatic(filename) : http404(),
-};
+import { contentType, NotFoundError, readableStream, realpath, stat } from "./adaptor.js";
 
 /**
  * @param {string} filepath
  * @param {string} rootDir
  * @returns {Promise<Response>}
  */
-export async function _serveStatic(filepath, rootDir = ASSETS_DIR) {
+export async function serveStatic(filepath, rootDir) {
 	try {
 		let { body, ...headers } = await read(filepath, rootDir);
 		return new Response(body, { headers });
@@ -61,5 +43,3 @@ async function read(filepath, rootDir) {
 		"Content-Length": size.toString(),
 	};
 }
-
-/** @import { PathParams } from "../route.js" */

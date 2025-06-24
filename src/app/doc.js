@@ -1,4 +1,4 @@
-import { html } from "../html.js";
+import { html } from "../lib/html.js";
 
 /**
  * @param {{ title: string, lang?: string }} meta
@@ -7,6 +7,7 @@ import { html } from "../html.js";
  * @returns {TrustedContent}
  */
 export function document({ lang, title }, head, body) {
+	// deno-fmt-ignore
 	return html`
 <!DOCTYPE html>
 <html${{ lang }}>
@@ -24,4 +25,4 @@ export function document({ lang, title }, head, body) {
 	`;
 }
 
-/** @import { TrustedContent } from "../html.js" */
+/** @import { TrustedContent } from "../lib/html.js" */

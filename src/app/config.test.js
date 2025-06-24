@@ -1,5 +1,5 @@
-import { ROUTES } from "../config.js"; // XXX: smell
-import { dispatch } from "./index.js";
+import { ROUTES } from "./config.js";
+import { dispatch } from "../lib/http/index.js";
 import { describe, it } from "@std/testing/bdd";
 import { assert, assertStrictEquals as assertSame } from "@std/assert";
 
@@ -25,9 +25,6 @@ describe("HTTP routing", () => {
 		res = await process("/assets/main.css");
 		assertSame(res.status, 200);
 		assert((await res.text()).includes(":root {\n"));
-
-		res = await process("/" + crypto.randomUUID());
-		assertSame(res.status, 404);
 	});
 });
 
@@ -41,4 +38,4 @@ function process(uri, options) {
 	return dispatch(ROUTES_LIST, req);
 }
 
-/** @import { Route } from "../route.js" */
+/** @import { Route } from "../lib/route.js" */

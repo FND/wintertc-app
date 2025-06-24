@@ -9,7 +9,7 @@ Getting Started
 
 *   ensure [Deno](https://deno.com) is installed
 
-*   `deno task server` starts the application at http://localhost:8000/
+*   `deno task app` starts the application at http://localhost:8000/
 
 
 Contributing

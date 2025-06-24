@@ -1,7 +1,7 @@
 import rootHandlers from "./routes/root.js";
 import * as articleHandlers from "./routes/articles.js";
 import assetHandlers from "./routes/assets.js";
-import { Route } from "./route.js";
+import { Route } from "../lib/route.js";
 
 let ROUTES_LIST = [
 	new Route("root", "/", rootHandlers),
