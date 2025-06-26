@@ -10,6 +10,10 @@ let STORE = new Map();
 let ROOT_URL;
 /** @type {string} */
 let NOTIFICATIONS_URL;
+/** @type {string} */
+let ARTICLES_URL;
+/** @type {Route["url"]} */
+let ARTICLE_URL;
 /** @type {Route["url"]} */
 let ASSET_URL;
 
@@ -21,6 +25,8 @@ export default {
 /** @returns {Response} */
 function show() {
 	ROOT_URL ??= ROUTER.get("root")().toString();
+	ARTICLES_URL ??= ROUTER.get("articles")().toString();
+	ARTICLE_URL ??= ROUTER.get("article");
 	NOTIFICATIONS_URL ??= ROUTER.get("notifications")().toString();
 	ASSET_URL ??= ROUTER.get("asset");
 
@@ -55,6 +61,12 @@ function show() {
 <dl>${STORE.entries().map(([name, desc]) => {
 	return html`<dt>${name}</dt><dd>${desc ?? "—"}</dd>`;
 })}</dl>
+
+<section class="showcase">
+	<iframe${{ src: ARTICLES_URL }}></iframe>
+	<iframe${{ src: ARTICLE_URL({ slug: "hello-world" }).toString() }}></iframe>
+	<iframe${{ src: ARTICLE_URL({ slug: "lipsum" }).toString() }}></iframe>
+</section>
 	`);
 	return new Response(doc.toString(), {
 		status: 200,
