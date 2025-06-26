@@ -1,10 +1,10 @@
-import { ROUTES } from "./config.js";
+import { ROUTER } from "./config.js";
 import { dispatch } from "../lib/http/index.js";
 import { describe, it } from "@std/testing/bdd";
 import { assert, assertStrictEquals as assertSame } from "@std/assert";
 
 /** @type {Route[]} */
-let ROUTES_LIST = [...ROUTES.values()];
+let ROUTES_LIST = [...ROUTER];
 
 describe("HTTP routing", () => {
 	it("generates a response for all routes", async () => {

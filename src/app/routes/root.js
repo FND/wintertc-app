@@ -1,4 +1,4 @@
-import { ROUTES } from "../config.js";
+import { ROUTER } from "../config.js";
 import { document } from "../doc.js";
 import { html } from "../../lib/html.js";
 import { formData, http302 } from "../../lib/http/index.js";
@@ -8,8 +8,8 @@ let STORE = new Map();
 
 /** @type {string} */
 let ROOT_URL;
-/** @type {Route} */
-let ASSET_ROUTE;
+/** @type {Route["url"]} */
+let ASSET_URL;
 
 export default {
 	GET: show,
@@ -18,8 +18,8 @@ export default {
 
 /** @returns {Response} */
 function show() {
-	ROOT_URL ??= /** @type {Route} */ (ROUTES.get("root")).url().toString();
-	ASSET_ROUTE ??= /** @type {Route} */ (ROUTES.get("asset"));
+	ROOT_URL ??= ROUTER.get("root")().toString();
+	ASSET_URL ??= ROUTER.get("asset");
 
 	let title = "Items";
 	// deno-fmt-ignore
@@ -28,7 +28,7 @@ function show() {
 		title,
 	}, html`
 <link rel="stylesheet"${{
-	href: ASSET_ROUTE.url({ filename: "main.css" }).toString()
+	href: ASSET_URL({ filename: "main.css" }).toString()
 }}>
 	`, html`
 <h1>${title}</h1>
