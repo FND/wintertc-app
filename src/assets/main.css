@@ -10,6 +10,7 @@
 }
 
 body {
+	position: relative;
 	max-width: calc(var(--h-size) + 2 * var(--spacing));
 	margin: 1rem auto;
 	padding-inline: var(--spacing);
@@ -43,4 +44,18 @@ textarea {
 
 textarea:not([rows]) {
 	min-height: 10em;
+}
+
+noti-fier {
+	position: absolute;
+	top: 0;
+	right: var(--spacing);
+	border: 3px solid #B0DCDF; /* XXX: magic values */
+	border-inline-width: 0;
+	padding: var(--spacing);
+	background-color: #F0FCFF; /* XXX: magic value */
+
+	&:empty {
+		display: none;
+	}
 }

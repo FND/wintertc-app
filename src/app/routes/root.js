@@ -8,6 +8,8 @@ let STORE = new Map();
 
 /** @type {string} */
 let ROOT_URL;
+/** @type {string} */
+let NOTIFICATIONS_URL;
 /** @type {Route["url"]} */
 let ASSET_URL;
 
@@ -19,6 +21,7 @@ export default {
 /** @returns {Response} */
 function show() {
 	ROOT_URL ??= ROUTER.get("root")().toString();
+	NOTIFICATIONS_URL ??= ROUTER.get("notifications")().toString();
 	ASSET_URL ??= ROUTER.get("asset");
 
 	let title = "Items";
@@ -30,9 +33,13 @@ function show() {
 <link rel="stylesheet"${{
 	href: ASSET_URL({ filename: "main.css" }).toString()
 }}>
+<script type="module"${{
+	src: ASSET_URL({ filename: "notifier.js" }).toString()
+}}></script>
 	`, html`
 <h1>${title}</h1>
 
+<noti-fier${{ url: NOTIFICATIONS_URL }}></noti-fier>
 <form method="post"${{ action: ROOT_URL }}>
 	<label>
 		<b>Name</b>

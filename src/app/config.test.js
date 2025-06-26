@@ -19,6 +19,24 @@ describe("HTTP routing", () => {
 		assertSame(res.status, 302);
 		assertSame(res.headers.get("Location"), "/");
 
+		res = await process("/articles");
+		assertSame(res.status, 200);
+		assert((await res.text()).startsWith("hello-world: Hello World\n"));
+
+		res = await process("/articles/hello-world");
+		assertSame(res.status, 200);
+		assert((await res.text()).startsWith("Hello World\n"));
+
+		res = await process("/notifications");
+		assertSame(res.status, 200);
+		let txt = "";
+		for await (let chunk of /** @type {any} */ (res.body)) {
+			txt += new TextDecoder().decode(chunk);
+			break;
+		}
+		assert(txt.startsWith("data: "));
+		assert(txt.includes("\r\n\r\n"));
+
 		res = await process("/assets");
 		assertSame(res.status, 404);
 
