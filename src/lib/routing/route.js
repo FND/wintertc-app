@@ -1,4 +1,4 @@
-import { LocalURL } from "./http/url.js";
+import { LocalURL } from "../http/url.js";
 
 export class Route {
 	/**

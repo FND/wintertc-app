@@ -1,5 +1,5 @@
 import { ROUTER } from "./config.js";
-import { dispatch } from "../lib/http/index.js";
+import { dispatch } from "../lib/routing/index.js";
 import { describe, it } from "@std/testing/bdd";
 import { assert, assertStrictEquals as assertSame } from "@std/assert";
 
@@ -56,4 +56,4 @@ function process(uri, options) {
 	return dispatch(ROUTES_LIST, req);
 }
 
-/** @import { Route } from "../lib/route.js" */
+/** @import { Route } from "../lib/routing/route.js" */

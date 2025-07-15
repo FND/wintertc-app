@@ -53,4 +53,4 @@ nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 	});
 }
 
-/** @import { PathParams } from "../../lib/route.js" */
+/** @import { PathParams } from "../../lib/routing/route.js" */

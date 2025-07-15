@@ -12,4 +12,4 @@ export default {
 	GET: (_req, { filename }) => filename ? serveStatic(filename, ASSETS_DIR) : http404(),
 };
 
-/** @import { PathParams } from "../../lib/route.js" */
+/** @import { PathParams } from "../../lib/routing/route.js" */

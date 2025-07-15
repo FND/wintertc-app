@@ -1,5 +1,6 @@
-import { dispatch, http302 } from "./index.js";
-import { Route } from "../route.js";
+import { dispatch } from "./index.js";
+import { Route } from "./route.js";
+import { http302 } from "../http/index.js";
 import { describe, it } from "@std/testing/bdd";
 import { assertStrictEquals as assertSame } from "@std/assert";
 

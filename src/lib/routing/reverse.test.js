@@ -1,6 +1,6 @@
-import { ReverseRouter } from "./rev_router.js";
+import { ReverseRouter } from "./reverse.js";
 import { Route } from "./route.js";
-import { LocalURL } from "./http/url.js";
+import { LocalURL } from "../http/url.js";
 import { describe, it } from "@std/testing/bdd";
 import { assert, assertStrictEquals as assertSame, assertThrows } from "@std/assert";
 

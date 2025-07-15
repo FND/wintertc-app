@@ -89,4 +89,4 @@ async function update(req) {
 	return http302(ROOT_URL);
 }
 
-/** @import { Route } from "../../lib/route.js" */
+/** @import { Route } from "../../lib/routing/route.js" */
