@@ -23,3 +23,10 @@ Contributing
 
 *   `deno test --allow-read` runs the test suite (optionally with `--parallel`
     or `--watch`)
+
+
+Resources
+---------
+
+* [HTTP Routing with Web Standards](https://prepitaph.org/articles/http-routing/)
+* [Lightweight HTML Templating with JavaScript](https://prepitaph.org/articles/lightweight-html-templating/)
