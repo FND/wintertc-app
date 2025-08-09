@@ -46,6 +46,15 @@ textarea:not([rows]) {
 	min-height: 10em;
 }
 
+footer {
+	width: fit-content;
+	margin: 1rem auto 0; /* XXX: magic value */
+
+	img {
+		max-height: 3rem; /* XXX: magic value */
+	}
+}
+
 noti-fier {
 	position: absolute;
 	top: 0;

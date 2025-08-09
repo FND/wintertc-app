@@ -1,4 +1,4 @@
-import { contentType, NotFoundError, readableStream, realpath, stat } from "./adaptor.js";
+import { contentType, NotFoundError, readFile, realpath, stat } from "./adaptor/index.js";
 
 /**
  * @param {string} filepath
@@ -22,7 +22,7 @@ export async function serveStatic(filepath, rootDir) {
 /**
  * @param {string} filepath
  * @param {string} rootDir
- * @returns {Promise<{ body: ReadableStream<Uint8Array> } | Record<string, string>>}
+ * @returns {Promise<{ body: ReadableStream<Uint8Array> | string } | Record<string, string>>}
  */
 async function read(filepath, rootDir) {
 	filepath = await realpath(rootDir + "/" + filepath); // TODO: normalize `rootDir`?
@@ -37,9 +37,21 @@ async function read(filepath, rootDir) {
 		throw new NotFoundError("invalid file reference");
 	}
 
+	let stream = await readFile(filepath);
+	let mimeType = contentType(filepath);
+	/** @type {ReadableStream<Uint8Array> | string} */
+	let body; // XXX: leaky abstraction; heuristics below required due to Node support
+	if (stream instanceof ReadableStream) {
+		body = stream;
+	} else if (mimeType === undefined) { // XXX: brittle
+		body = /** @type {any} */ (stream);
+	} else {
+		body = stream.toString();
+	}
+
 	return {
-		body: await readableStream(filepath),
-		"Content-Type": contentType(filepath) ?? "application/octet-stream",
+		body,
+		"Content-Type": mimeType ?? "application/octet-stream",
 		"Content-Length": size.toString(),
 	};
 }

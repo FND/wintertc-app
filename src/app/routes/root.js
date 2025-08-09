@@ -67,6 +67,12 @@ function show() {
 	<iframe${{ src: ARTICLE_URL({ slug: "hello-world" }).toString() }}></iframe>
 	<iframe${{ src: ARTICLE_URL({ slug: "lipsum" }).toString() }}></iframe>
 </section>
+
+<footer>
+	<img alt="placeholder image"${{
+		src: ASSET_URL({ filename: "placeholder.png" }).toString()
+	}}>
+</footer>
 	`);
 	return new Response(doc.toString(), {
 		status: 200,
