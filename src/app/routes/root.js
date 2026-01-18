@@ -1,7 +1,7 @@
 import { ROUTER } from "../config.js";
 import { document } from "../doc.js";
 import { html } from "../../lib/html.js";
-import { formData, http302 } from "../../lib/http/index.js";
+import { http302 } from "../../lib/http/index.js";
 
 /** @type {Map<string, string | null>} */
 let STORE = new Map();
@@ -87,10 +87,12 @@ function show() {
  * @returns {Promise<Response>}
  */
 async function update(req) {
-	let data = await formData(req.body);
+	// XXX: size protection? cf. https://github.com/whatwg/fetch/issues/1592
+	let data = await req.formData();
 	let name = data.get("name");
-	if (name) {
-		STORE.set(name, data.get("desc") || null);
+	let desc = data.get("desc");
+	if (typeof name === "string") {
+		STORE.set(name, typeof desc === "string" && desc || null);
 	}
 	return http302(ROOT_URL);
 }
